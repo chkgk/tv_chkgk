@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TV Programme</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='milligram.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>TV Programm heute, {{ date.strftime("%-d.%-m.%Y") }}</h1>
+        <nav>
+            <a href="/settings">Sender wählen</a>
+        </nav>
+        <table>
+            <thead class="sticky-header">
+                <tr>
+                    <th>Uhrzeit</th>
+                    {% for c in channels %}
+                        <th>{{ c }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for time, data in context.items() %}
+                <tr>
+                    <td><b><a class="time" id="{{ time }}">{{ time }}</a></b></td>
+                    {% for c in data['programmes'] %} 
+                        <td> {{ c['title'] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        if(!window.location.hash) {
+            window.setTimeout(function () {
+                let element_to_scroll_to = document.getElementById('{{ anchor }}');
+                element_to_scroll_to.scrollIntoView({behavior: 'smooth'});
+                let parent = element_to_scroll_to.parentElement.parentElement.parentElement;
+                parent.classList.add('highlight');
+            }, 500);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TV Programme</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='milligram.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Senderauswahl</h1>
+            <form name="settings" action="/settings" method="POST">
+                {% for channel in channels %}
+                    <input type="checkbox" name="channels" value="{{ channel.id }}" id="id_{{ channel.id }}" 
+                    {% if channel.id in selected %}checked="checked"{% endif %}><label for="id_{{ channel.id }}" class="label-inline"> {{ channel.display_name }}</label><br>
+                {% endfor %}
+               
+                <p><em>Durch das Speichern wird ein Cookie auf Ihrem Computer gespeichert. Dieses beinhaltet die Kanalauswahl. Bei erneutem Besuch der Seite werden mithilfe dieses Cookies die von Ihnen ausgewählten Kanäle angezeigt. Wenn Sie damit nicht einverstanden sind, lassen Sie es bleiben.</em></p>
+                <input type="submit" value="Speichern">
+            </form>
+        </div>
+    </body>
+</html>
