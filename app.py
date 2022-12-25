@@ -107,7 +107,7 @@ def index():
 @app.route('/settings', methods=['POST', 'GET'])
 def settings():
     if request.method == 'GET':
-        cookie_channels = json.loads(request.cookies.get('channels'))
+        cookie_channels = json.loads(request.cookies.get('channels', '[]'))
         channels = db.session.query(Channels).all()
         return render_template('settings.htm', channels=channels, selected=cookie_channels)
 

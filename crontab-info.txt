@@ -1,0 +1,1 @@
+5 3 * * * /opt/tv/venv/bin/python /opt/tv/main.py > /opt/cron-tv.log
